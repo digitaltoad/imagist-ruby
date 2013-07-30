@@ -5,27 +5,27 @@ module Imagist
   class App < Sinatra::Base
     enable :logging
 
-    before do
-      if params[:color] && /\A([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\z/.match(params[:color]).nil?
-        halt 'Invalid color'
-      end
-    end
+    HEX_VALIDATION = /\A([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\z/
 
     get /\A\/([0-9]+)x([0-9]+).(png|gif|jpg)\z/ do |height, width, format|
       height = Integer(height)
       width  = Integer(width)
+      color  = params[:color] || 'eee'
+      text   = params[:text]  || "#{height}x#{width}"
 
       if height > 2000 || width > 2000
         halt 'Image too big!'
       end
 
-      text   = params[:text]  || "#{height}x#{width}"
-      color  = params[:color] || 'eee'
+      if color && HEX_VALIDATION.match(color).nil?
+        halt 'Invalid color'
+      end
 
       image = Magick::Image.new(height, width)
       image.format = format
       image.background_color = "##{color}"
       image.erase!
+
       draw = Magick::Draw.new
       draw.font_family = 'HelveticaNeue'
       draw.fill = '#888'

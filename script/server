@@ -3,6 +3,6 @@ cd "$(dirname "$0")/.."
 [ $PORT ]     || PORT=3000
 [ $RACK_ENV ] || RACK_ENV=development
 
-cmd="ruby -I lib -S bundle exec ruby -I lib -S unicorn -p $PORT -c ./config/unicorn.rb"
+cmd="ruby -I lib -S bundle exec ruby -I lib -S unicorn -p $PORT -c ./config/unicorn.rb -E $RACK_ENV"
 [[ $RACK_ENV == "development" ]] && exec rerun "$cmd"
 exec $cmd

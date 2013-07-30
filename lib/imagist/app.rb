@@ -1,5 +1,5 @@
 require 'sinatra/base'
-require 'rmagick'
+require 'RMagick'
 
 module Imagist
   class App < Sinatra::Base

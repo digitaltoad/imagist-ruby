@@ -29,7 +29,7 @@ module Imagist
       draw = Magick::Draw.new
       draw.font_family = 'HelveticaNeue'
       draw.fill = '#888'
-      draw.pointsize = ((height + width) / 2) * 0.10
+      draw.pointsize = [height, width].min * 0.10
       draw.gravity = Magick::CenterGravity
       draw.annotate(image, 0, 0, 0, 0, text)
 

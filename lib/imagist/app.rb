@@ -31,7 +31,7 @@ module Imagist
       draw.fill = '#888'
       draw.pointsize = [height, width].min * 0.10
       draw.gravity = Magick::CenterGravity
-      draw.annotate(image, 0, 0, 0, 0, text)
+      draw.annotate(image, height, width, 0, 0, text)
 
       content_type image.mime_type
 

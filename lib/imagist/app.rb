@@ -5,7 +5,13 @@ module Imagist
   class App < Sinatra::Base
     enable :logging
 
+    set :public_folder, File.expand_path('../../../public', __FILE__)
+
     HEX_VALIDATION = /\A([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\z/
+
+    get '/' do
+      erb :index
+    end
 
     get /\A\/([0-9]+)x([0-9]+).(png|gif|jpg)\z/ do |height, width, format|
       height = Integer(height)

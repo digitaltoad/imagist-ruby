@@ -39,6 +39,7 @@ module Imagist
       draw.gravity = Magick::CenterGravity
       draw.annotate(image, height, width, 0, 0, text)
 
+      expires Time.now + 24 * 60 * 60, :public, :must_revalidate
       content_type image.mime_type
 
       stream do |out|
